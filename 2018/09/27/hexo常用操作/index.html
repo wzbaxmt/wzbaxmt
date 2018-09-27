@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>汉字编码表 | Wzbaxmt&#39;blog</title>
+  <title>hexo常用操作 | Wzbaxmt&#39;blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="汉字编码表 | Wzbaxmt&#39;blog">
+  <meta name="description" content="hexo常用操作 | Wzbaxmt&#39;blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:type" content="article">
@@ -212,9 +212,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-汉字编码表" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-hexo常用操作" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">汉字编码表</h1>
+        <h1 class="article-title">hexo常用操作</h1>
     
     <div class="article-meta">
         
@@ -224,7 +224,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2018-09-27 04:56:44'>2018-09-27 02:52</time>
+        创建时间:<time class="date" title='更新时间: 2018-09-27 04:56:43'>2018-09-27 04:29</time>
         
     </div>
     <div class="article-meta">
@@ -246,7 +246,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ASCII码"><span class="toc-text">ASCII码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是ASCII码-？"><span class="toc-text">什么是ASCII码 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASCII表述方式"><span class="toc-text">ASCII表述方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unicode"><span class="toc-text">Unicode</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Unicode"><span class="toc-text">什么是Unicode ?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UTF-8"><span class="toc-text">UTF-8</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是UTF-8"><span class="toc-text">什么是UTF-8 ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UTF-8表述方式"><span class="toc-text">UTF-8表述方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-text">参考链接：</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-初始化"><span class="toc-text">1.初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-清除缓存"><span class="toc-text">2.清除缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-新建文章"><span class="toc-text">3.新建文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-生成静态文件"><span class="toc-text">4.生成静态文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-本地预览博客"><span class="toc-text">5.本地预览博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-推送Github"><span class="toc-text">6.推送Github</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-其他"><span class="toc-text">7.其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#render"><span class="toc-text">render</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#migrate"><span class="toc-text">migrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#version"><span class="toc-text">version</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -261,14 +261,33 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h1><h2 id="什么是ASCII码-？"><a href="#什么是ASCII码-？" class="headerlink" title="什么是ASCII码 ？"></a>什么是ASCII码 ？</h2><p>在计算机中，所有的数据在存储和运算时都要使用二进制数表示，例如，像a、b、c、d这样的52个字母（包括大写）以及0、1等数字还有一些常用的符号（例如*、#、@等）在计算机中存储时也要使用二进制数来表示，而具体用哪些二进制数字表示哪个符号，当然每个人都可以约定自己的一套（这就叫编码），而大家如果要想互相通信而不造成混乱，那么大家就必须使用相同的编码规则，于是美国有关的标准化组织就出台了ASCII编码，统一规定了上述常用符号用哪些二进制数来表示。<br>ASCII（American Standard Code for Information Interchange，美国信息互换标准代码，ASCⅡ）是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。</p>
-<h2 id="ASCII表述方式"><a href="#ASCII表述方式" class="headerlink" title="ASCII表述方式"></a>ASCII表述方式</h2><p>ASCII 码使用指定的7位或8位二进制数组合来表示128或256种可能的字符。标准ASCII码也叫基础ASCII码，使用7 位二进制数（剩下的1位二进制为0）来表示所有的大写和小写字母，数字0 到9、标点符号， 以及在美式英语中使用的特殊控制字符。其中：<br>0～31及127(共33个)是控制字符或通信专用字符（其余为可显示字符），如控制符：LF（换行）、CR（回车）、FF（换页）、DEL（删除）、BS（退格)、BEL（响铃）等；通信专用字符：SOH（文头）、EOT（文尾）、ACK（确认）等；ASCII值为8、9、10 和13 分别转换为退格、制表、换行和回车字符。它们并没有特定的图形显示，但会依不同的应用程序，而对文本显示有不同的影响。<br>32～126(共95个)是字符(32是空格），其中48～57为0到9十个阿拉伯数字。<br>65～90为26个大写英文字母，97～122号为26个小写英文字母，其余为一些标点符号、运算符号等。<br>同时还要注意，在标准ASCII中，其最高位(b7)用作奇偶校验位。所谓奇偶校验，是指在代码传送过程中用来检验是否出现错误的一种方法，一般分奇校验和偶校验两种。奇校验规定：正确的代码一个字节中1的个数必须是奇数，若非奇数，则在最高位b7添1；偶校验规定：正确的代码一个字节中1的个数必须是偶数，若非偶数，则在最高位b7添1。<br>后128个称为扩展ASCII码。许多基于x86的系统都支持使用扩展（或“高”）ASCII。扩展ASCII码允许将每个字符的第8 位用于确定附加的128 个特殊符号字符、外来语字母和图形符号。</p>
-<h1 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h1><h2 id="什么是Unicode"><a href="#什么是Unicode" class="headerlink" title="什么是Unicode ?"></a>什么是Unicode ?</h2><p>Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。1990年开始研发，1994年正式公布。<br>Unicode 当然是一本很厚的字典，记录着世界上所有字符对应的一个数字。具体是怎样的对应关系，又或者说是如何进行划分的，就不是我们考虑的问题了，我们只用知道 Unicode 给所有的字符指定了一个数字用来表示该字符。<br>对于 Unicode 有一些误解，它仅仅只是一个字符集，规定了符合对应的二进制代码，至于这个二进制代码如何存储则没有任何规定。它的想法很简单，就是为每个字符规定一个用来表示该字符的数字，仅此而已。</p>
-<h1 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h1><h2 id="什么是UTF-8"><a href="#什么是UTF-8" class="headerlink" title="什么是UTF-8 ?"></a>什么是UTF-8 ?</h2><p>UTF-8是一个Unicode非常惊艳的编码方式，漂亮的实现了ASCII码的向后兼容。<br>UTF-8是目前互联网上使用最广泛的一种Unicode编码方式，它的最大特点就是可变长。它可以使用1~4个字节表示一个字符，根据字符的不同变换长度。编码规则如下：<br>对于单个字节的字符，第一位设为 0，后面的 7 位对应这个字符的 Unicode 码点。因此，对于英文中的0~127 号字符，与ASCII码完全相同。这意味着ASCII码那个年代的文档用UTF-8编码打开完全没有问题。<br>对于需要使用N个字节来表示的字符（N &gt; 1），第一个字节的前N 位都设为1，第N + 1 位设为0，剩余的N - 1 个字节的前两位都设位10，剩下的二进制位则使用这个字符的 Unicode 码点来填充。</p>
-<h2 id="UTF-8表述方式"><a href="#UTF-8表述方式" class="headerlink" title="UTF-8表述方式"></a>UTF-8表述方式</h2><p>  Unicode 十六进制码点范围<br>  UTF-8 二进制<br>  0000 0000 - 0000 007F 0xxxxxxx<br>  0000 0080 - 0000 07FF 110xxxxx 10xxxxxx<br>  0000 0800 - 0000 FFFF 1110xxxx 10xxxxxx 10xxxxxx<br>  0001 0000 - 0010 FFFF 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  </p>
-<p>根据上面编码规则对照表，进行UTF-8编码和解码就简单多了。下面以汉字“汉”为利，具体说明如何进行 UTF-8 编码和解码。<br>“汉”的 Unicode 码点是 0x6c49（110 1100 0100 1001），通过上面的对照表可以发现，0x0000 6c49 位于第三行的范围，那么得出其格式为 1110xxxx 10xxxxxx 10xxxxxx。接着，从“汉”的二进制数最后一位开始，从后向前依次填充对应格式中的 x，多出的 x 用 0 补上。这样，就得到了“汉”的 UTF-8 编码为 11100110 10110001 10001001，转换成十六进制就是 0xE6 0xB7 0x89。<br>解码的过程也十分简单：如果一个字节的第一位是 0 ，则说明这个字节对应一个字符；如果一个字节的第一位1，那么连续有多少个 1，就表示该字符占用多少个字节。</p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p><img src="/img/ASCII1.png" alt=""><br><img src="/img/ASCII2.png" alt=""></p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p>ASCII字符表： <a href="http://ascii.911cha.com/" target="_blank" rel="noopener">http://ascii.911cha.com/</a><br>Unicode字符表: <a href="https://unicode-table.com/cn/" target="_blank" rel="noopener">https://unicode-table.com/cn/</a><br><a href="https://blog.csdn.net/hezh1994/article/details/78899683" target="_blank" rel="noopener">https://blog.csdn.net/hezh1994/article/details/78899683</a></p>
+        <h1 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1.初始化"></a>1.初始化</h1><pre><code>hexo init
+</code></pre><p>默认在当前文件夹下初始化博客，可指定文件夹。</p>
+<pre><code>hexo init [folder]
+</code></pre><h1 id="2-清除缓存"><a href="#2-清除缓存" class="headerlink" title="2.清除缓存"></a>2.清除缓存</h1><pre><code>hexo clean
+</code></pre><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。<br>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，可能需要运行该命令。</p>
+<h1 id="3-新建文章"><a href="#3-新建文章" class="headerlink" title="3.新建文章"></a>3.新建文章</h1><pre><code>hexo new 文章标题
+</code></pre><p>新建一篇文章。如果没有设置layout(布局)的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。如需设定layout(布局)则使用  </p>
+<pre><code>hexo new 布局名 文章标题 
+</code></pre><h1 id="4-生成静态文件"><a href="#4-生成静态文件" class="headerlink" title="4.生成静态文件"></a>4.生成静态文件</h1><pre><code>hexo generate
+</code></pre><p>生成静态文件命令，也可简写为  </p>
+<pre><code>hexo g
+</code></pre><h1 id="5-本地预览博客"><a href="#5-本地预览博客" class="headerlink" title="5.本地预览博客"></a>5.本地预览博客</h1><pre><code>hexo server
+</code></pre><p>启动服务器。默认情况下，访问网址为： <a href="http://localhost:4000/。" target="_blank" rel="noopener">http://localhost:4000/。</a><br>选项&emsp;&emsp;&emsp;&emsp;&emsp;描述<br>-p,&emsp;–port&emsp;&emsp;重设端口<br>-s,&emsp;–static&emsp;&emsp;只使用静态文件<br>-l,&emsp;–log&emsp;&emsp;&emsp;启动日记记录，使用覆盖记录格式<br>也可简写为</p>
+<pre><code>hexo s
+</code></pre><h1 id="6-推送Github"><a href="#6-推送Github" class="headerlink" title="6.推送Github"></a>6.推送Github</h1><pre><code>hexo deploy
+</code></pre><p>需已经执行hexo g 生成静态文件,该命令也可简写为</p>
+<pre><code>hexo d
+</code></pre><p>ps:若执行命令无反应，查看_config.yml中delooy配置下的地址,<br>配置地址的冒号后面有没有多出两个空格,正常应该只有一个空格..</p>
+<h1 id="7-其他"><a href="#7-其他" class="headerlink" title="7.其他"></a>7.其他</h1><h2 id="render"><a href="#render" class="headerlink" title="render"></a>render</h2><pre><code>$ hexo render &lt;file1&gt; [file2] ...
+</code></pre><p>渲染文件。<br>参数&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;描述<br>-o,&emsp;–output&emsp;&emsp;设置输出路径  </p>
+<h2 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h2><pre><code>$ hexo migrate &lt;type&gt;  
+</code></pre><p>从其他博客系统 迁移内容。 </p>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><pre><code>$ hexo list &lt;type&gt;
+</code></pre><p>列出网站资料。</p>
+<h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><pre><code>$ hexo version
+</code></pre><p>显示 Hexo 版本</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>Hexo指令<br><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/commands.html</a><br>解决用Hexo和GitHub搭建博客时hexo d命令报错问题<br><a href="https://blog.csdn.net/Greenovia/article/details/60576985" target="_blank" rel="noopener">https://blog.csdn.net/Greenovia/article/details/60576985</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 674823147@qq.com </span>
@@ -282,12 +301,12 @@
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>汉字编码表</p>
+    <p><span>文章标题:</span>hexo常用操作</p>
     
     <p><span>本文作者:</span><a href="javascript:void(0)" title="wzbaxmt">wzbaxmt</a></p>
-    <p><span>发布时间:</span>2018-09-27, 02:52:55</p>
-    <p><span>最后更新:</span>2018-09-27, 04:56:44</p>
-    <span>原始链接:</span><a class="post-url" href="/2018/09/27/汉字编码表/" title="汉字编码表">http://yoursite.com/2018/09/27/汉字编码表/</a>
+    <p><span>发布时间:</span>2018-09-27, 04:29:59</p>
+    <p><span>最后更新:</span>2018-09-27, 04:56:43</p>
+    <span>原始链接:</span><a class="post-url" href="/2018/09/27/hexo常用操作/" title="hexo常用操作">http://yoursite.com/2018/09/27/hexo常用操作/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
