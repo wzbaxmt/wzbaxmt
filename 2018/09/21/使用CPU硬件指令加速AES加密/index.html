@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>使用CPU硬件指令加速AES加密 | Wzbaxmt&#39;blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="使用CPU硬件指令加速AES加密 | Wzbaxmt&#39;blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="http://yoursite.com/2018/09/27/hello-world/index.html">
+<meta property="og:site_name" content="Wzbaxmt&#39;blog">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-27T08:15:30.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+
+
+<link rel="icon" href="/img/wzbaxmt.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-light.css">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+</div>
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/wzbaxmt.jpg" />
+</a>
+<div class="author">
+    <span>wzbaxmt</span>
+</div>
+
+<div class="icon">
+    
+    
+    <a class="github" title="github" href="https://github.com/wzbaxmt" target="_blank"></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="email" title="email" href="mailto:674823147@qq.com"></a>
+    
+</div>
+
+
+
+<ul>
+    <li class="all active">全部文章</li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="8">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+        <label for="tagswitch">Tags:</label>
+        <input id="tagswitch" type="checkbox">
+    </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2018/09/27/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2018-09-27 04:15:30">2018/09/27</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/21/iptales使用日记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="iptales使用日记">iptales使用日记</span>
+            <span class="post-date" title="2018-09-21 04:14:25">2018/09/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/21/markdown常用命令/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="markdown常用命令">markdown常用命令</span>
+            <span class="post-date" title="2018-09-21 04:26:02">2018/09/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/21/my-first-blog/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="my-first-blog">my-first-blog</span>
+            <span class="post-date" title="2018-09-21 03:31:03">2018/09/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/21/mysql常用命令/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="mysql常用命令">mysql常用命令</span>
+            <span class="post-date" title="2018-09-21 04:37:56">2018/09/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/21/使用CPU硬件指令加速AES加密/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="使用CPU硬件指令加速AES加密">使用CPU硬件指令加速AES加密</span>
+            <span class="post-date" title="2018-09-21 05:14:14">2018/09/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/27/正则表达式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2018-09-27 03:16:39">2018/09/27</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/09/27/汉字编码表/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="汉字编码表">汉字编码表</span>
+            <span class="post-date" title="2018-09-27 02:52:55">2018/09/27</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-使用CPU硬件指令加速AES加密" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">使用CPU硬件指令加速AES加密</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2018-09-27 04:15:29'>2018-09-21 05:14</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用CPU硬件指令加速AES加密"><span class="toc-text">使用CPU硬件指令加速AES加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-引言"><span class="toc-text">1 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2测试环境与配置"><span class="toc-text">2测试环境与配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3测试方法"><span class="toc-text">3测试方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-测试数据"><span class="toc-text">4 测试数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-测试结论"><span class="toc-text">5 测试结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-参考文档"><span class="toc-text">6 参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-源代码及其他"><span class="toc-text">7 源代码及其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-text">附录</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="使用CPU硬件指令加速AES加密"><a href="#使用CPU硬件指令加速AES加密" class="headerlink" title="使用CPU硬件指令加速AES加密"></a>使用CPU硬件指令加速AES加密</h1><h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h2><p>AES是世界上最安全、使用广泛的加密算法，很多安全合规要求里面都明确要求使用AES算法，只是相对于3des、rc4等加密算法，速度慢了很多，幸好有了AES-NI，这是针对AES加密算法的硬件加解密CPU指令集。</p>
+<p>AES-NI的全称是：Advanced Encryption Standard New Instructions。</p>
+<p>支持AES-NI指令集的 Intel CPU列表 ，基本上2010年之后的Intel CPU都支持，另外AMD和ARM的一些型号也支持</p>
+<p>本文将使用openssl自带的评测加密速度功能进行CPU硬件加速前后加密速度的比较，使用的是AES_CBC算法。</p>
+<h2 id="2测试环境与配置"><a href="#2测试环境与配置" class="headerlink" title="2测试环境与配置"></a>2测试环境与配置</h2><p><strong>服务器配置：</strong></p>
+<p>型号：浪潮英信NP3020M4</p>
+<p>CPU：Intel(R) Xeon(R) CPU E3-1220 v5 @3.00GHz</p>
+<p>内存：8GB</p>
+<p>硬盘：1TB</p>
+<p>系统：CentOS release 6.9(Final)</p>
+<p>应用软件：无（除装机自带软件）</p>
+<p>网络：无</p>
+<h2 id="3测试方法"><a href="#3测试方法" class="headerlink" title="3测试方法"></a>3测试方法</h2><p><strong>测试单核性能：</strong></p>
+<ol>
+<li>进入CentOS系统，打开终端。</li>
+<li>输入命令lscpu查看CPU信息。</li>
+<li>输入命令openssl speed -elapsed -evp aes-256-cbc，测试在开启AES-NI指令加速情况下的AES256位的加密速度。</li>
+<li>输入命令OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc，测试在关闭AES-NI指令加速情况下的AES256位的加密速度。</li>
+<li>输入命令openssl speed -elapsed -evp aes-128-cbc，测试在开启AES-NI指令加速情况下的AES128位的加密速度。</li>
+<li>输入命令OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc，测试在关闭AES-NI指令加速情况下的AES128位的加密速度。</li>
+<li>保存并记录。</li>
+</ol>
+<p><strong>测试多核性能：</strong></p>
+<ol>
+<li>运行脚本，同时开启4个测试开启AES-NI指令加速情况下的AES256位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启4个测试关闭AES-NI指令加速情况下的AES256位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启4个测试开启AES-NI指令加速情况下的AES128位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启4个测试关闭AES-NI指令加速情况下的AES128位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启8个测试开启AES-NI指令加速情况下的AES256位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启8个测试关闭AES-NI指令加速情况下的AES256位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启8个测试开启AES-NI指令加速情况下的AES128位的加密速度进程。</li>
+<li>保存数据并记录。</li>
+<li>运行脚本，同时开启8个测试关闭AES-NI指令加速情况下的AES128位的加密速度进程。</li>
+<li>保存数据并记录（脚本见附录）。</li>
+</ol>
+<h2 id="4-测试数据"><a href="#4-测试数据" class="headerlink" title="4 测试数据"></a>4 测试数据</h2><p><strong>数据含义：</strong></p>
+<p>_openssl speed –elapsed –evp aes-256-cbc  _</p>
+<p>_Doing aes-256-cbc for 3s on 16 size blocks: 164235849 aes-256-cbc &#39;s in 3.00s  _</p>
+<p>_Doing aes-256-cbc for 3s on 64 size blocks: 44104489 aes-256-cbc &#39;s in 3.00s  _</p>
+<p>_Doing aes-256-cbc for 3s on 256 size blocks: 11228355 aes-256-cbc&#39;s in 3.00s  _</p>
+<p>_Doing aes-256-cbc for 3s on 1024 size blocks: 2819584 aes-256-cbc&#39;s in 2.99s  _</p>
+<p>_Doing aes-256-cbc for 3s on 8192 size blocks: 352891 aes-256-cbc&#39;s in 3.00s  _</p>
+<p><em>OpenSSL 1.0.1e-fips  11 Feb 2013</em></p>
+<p><em>………..</em></p>
+<p>_The &#39;numbers&#39; are in 1000s of bytes per second processed.  _</p>
+<p>_type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  _</p>
+<p><em>aes-256-cbc     875924.53k   940895.77k  958152.92k  965636.79k  963627.69k</em></p>
+<p>_Doing aes-256-cbc for 3s on 16 size blocks: 164235849 aes-256-cbc &#39;s in 3.00s  _</p>
+<p>字符串长度为16bytes时3s内能够进行AES-CBC加密164235849次</p>
+<p>_The &#39;numbers&#39; are in 1000s of bytes per second processed.  _</p>
+<p>以KB位单位的每秒处理的数据量</p>
+<p>_type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  _</p>
+<p><em>aes-256-cbc     875924.53k   940895.77k  958152.92k  965636.79k  963627.69k</em></p>
+<p><strong>具体数据见附录</strong></p>
+<h2 id="5-测试结论"><a href="#5-测试结论" class="headerlink" title="5 测试结论"></a>5 测试结论</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>服务器加密速度（KB/s）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串长度/位数-加速</td>
+<td>256加速</td>
+<td>256</td>
+<td>128加速</td>
+<td>128</td>
+</tr>
+<tr>
+<td>单核单进程</td>
+<td>16</td>
+<td>875924.53</td>
+<td>242870.47</td>
+<td>1152152.95</td>
+<td>327853.66</td>
+</tr>
+<tr>
+<td>64</td>
+<td>940895.77</td>
+<td>258716.86</td>
+<td>1278913.62</td>
+<td>357635.80</td>
+</tr>
+<tr>
+<td>256</td>
+<td>958152.92</td>
+<td>260467.11</td>
+<td>1316540.07</td>
+<td>361558.19</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>965636.79</td>
+<td>262530.73</td>
+<td>1322280.28</td>
+<td>365654.70</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>963627.69</td>
+<td>264155.01</td>
+<td>1313524.39</td>
+<td>368541.70</td>
+</tr>
+<tr>
+<td>多核4进程</td>
+<td>16</td>
+<td>3294904.36</td>
+<td>901414.65</td>
+<td>4336745.83</td>
+<td>1217423.95</td>
+</tr>
+<tr>
+<td>64</td>
+<td>3540586.03</td>
+<td>962649.38</td>
+<td>4771461.06</td>
+<td>1339197.66</td>
+</tr>
+<tr>
+<td>256</td>
+<td>3607245.14</td>
+<td>891896.37</td>
+<td>4903944.87</td>
+<td>1357492.06</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>3624619.01</td>
+<td>972402.57</td>
+<td>4936605.35</td>
+<td>1374084.78</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>3628758.35</td>
+<td>980921.01</td>
+<td>4946269.53</td>
+<td>1382744.06</td>
+</tr>
+<tr>
+<td>多核8进程</td>
+<td>16</td>
+<td>3246483.48</td>
+<td>899521.39</td>
+<td>4399351.06</td>
+<td>1228441.42</td>
+</tr>
+<tr>
+<td>64</td>
+<td>3499138.96</td>
+<td>962182.65</td>
+<td>4839509.57</td>
+<td>1347116.34</td>
+</tr>
+<tr>
+<td>256</td>
+<td>3578745.69</td>
+<td>968934.82</td>
+<td>4967880.90</td>
+<td>1363601.36</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>3582695.12</td>
+<td>977917.53</td>
+<td>4999988.03</td>
+<td>1379532.03</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>3597490.11</td>
+<td>983167.74</td>
+<td>5034334.15</td>
+<td>1394122.75</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>密钥位数越多，加密字符串长度越长，AES加密处理速度越慢。</li>
+<li>开启CPU的AES加速（AES-NI）功能后，AES加密速度约提升为原来的3.6倍。</li>
+<li>多进程情况下，加密速度最高提升到单进程的3.7倍左右（该值与CPU核心数相关，本机为4核）。</li>
+<li>进程数超过CPU核心数后加密速度不再提升。</li>
+</ol>
+<h2 id="6-参考文档"><a href="#6-参考文档" class="headerlink" title="6 参考文档"></a>6 参考文档</h2><p>《提升 OpenSSL 性能》</p>
+<p><a href="https://software.intel.com/zh-cn/articles/improving-openssl-performance#_Toc416943480" target="_blank" rel="noopener">https://software.intel.com/zh-cn/articles/improving-openssl-performance#_Toc416943480</a></p>
+<p>《使用CPU硬件指令对AES加解密进行加速》</p>
+<p><a href="http://www.qingpingshan.com/m/view.php?aid=165463" target="_blank" rel="noopener">http://www.qingpingshan.com/m/view.php?aid=165463</a></p>
+<p>《openssl 的加密速度测试》</p>
+<p><a href="http://blog.csdn.net/dobell/article/details/54985245" target="_blank" rel="noopener">http://blog.csdn.net/dobell/article/details/54985245</a></p>
+<p>《Block cipher mode of operation》</p>
+<p><a href="https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Block\_cipher\_mode\_of\_operation</a></p>
+<h2 id="7-源代码及其他"><a href="#7-源代码及其他" class="headerlink" title="7 源代码及其他"></a>7 源代码及其他</h2><p>openssl-1.0.2l\apps\speed.c</p>
+<p> <img src="./" alt=""> <img src="data:image/*;base64,VkNMTVRGAQAxAAAAAAAAAAEAGwAAAAAAAAAAAAAAAAABAAAAAQAAAAEAAAABAAAAAW0DAABtAwAADgAAAJYAAQACAAAACQB4AAEAGRIAAEJNNhAAAAAAAAA2AAAAKAAAACAAAAAgAAAAAQAYAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFJSUnBwcH1+fn19fX19fX18fH19fXx9fXx9fXx9fXx9fXx8fHt8fHt8fHt8fHt8fHt8fHt8fHt7e3t7e35+fnZ2dgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANXV1f///////////////////////////////////////////////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANXV1fT09Pr6+vn5+ff5+fj5+fj5+fj5+fb4+Pb4+Pb4+Pb4+Pb4+Pb29vX29vX29vX29vX29vX29vX29vv6+unq6gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vX29vv8/Pn5+fn5+fj5+fj5+fj5+fj4+Pj4+Pf4+Pf4+Pf4+Pf4+Pf4+Pf39/b39/b39/b39/b39/v8/Ovs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vX29vv8/Pn6+vn5+fn5+fj5+fj5+fj5+fj4+Pj4+Pf4+Pf4+Pf4+Pf4+Pf4+Pf39/b39/b39/b39/v8/Ovs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29vr8/Pn6+vn6+vn5+fn5+fn5+fj5+fj5+fj4+Pj4+Pf4+Pf4+Pf4+Pf4+Pf4+Pb39/b39/b39/v8/Ovs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29vz8/Pr6+vn6+vn6+vn6+vn5+fj5+fj5+fj5+fj5+fj4+Pf4+Pf4+Pf4+Pf4+Pf39/f39/b39/v8/Ovs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29vz8/Pr6+vr6+vn6+vn6+vn6+vn5+fj5+fj5+fj5+fj5+fj4+Pj4+Pf4+Pf4+Pf4+Pf4+Pf39/v8/Ovs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29vz9/fr7+/r6+vr6+vr6+vn6+vn6+vn5+fn5+fn5+fj5+fj5+fj5+fj4+Pj4+Pf4+Pf4+Pf4+Pz9/ezs7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29v39/fr7+/r7+/r7+/r6+vr6+vn6+vn6+vn6+vn5+fn5+fj5+fj5+fj5+fj5+ff4+Pf4+Pf4+Pz9/ezt7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb29v39/fv7+/v7+/r7+/r7+/r6+vr6+vn6+vn6+vn6+vn5+fn5+fj5+fj5+fj5+fj4+Pj4+Pf4+Pz9/ezt7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb39/39/fv7+/v7+/v7+/r7+/r7+/r6+vr6+vn6+vn6+vn6+vn5+fn5+fj5+fj5+fj5+fj4+Pj4+Pz9/ezt7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vb39/3+/vv7+/v7+/v7+/v7+/r7+/r6+vr6+vr6+vn6+vn6+vn6+vn5+fn5+fn5+fj5+fj5+fj4+P39/ezt7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vf39/7+/vv8/Pv8/Pv7+/v7+/v7+/r7+/r7+/r6+vr6+vr6+vn6+vn6+vn6+vn5+fj5+fj5+fj5+f3+/u3t7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vf39/7+/vz8/Pv8/Pv8/Pv7+/v7+/v7+/r7+/r7+/r6+vr6+vr6+vn6+vn6+vn6+vn5+fj5+fj5+f3+/u3u7gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vf39/7+/vz8/Pz8/Pv8/Pv8/Pv7+/v7+/v7+/r7+/r7+/r6+vr6+vr6+vn6+vn6+vn5+fn5+fj5+f3+/u3u7gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANbW1vf4+P7+/vz8/Pz8/Pz8/Pz8/Pv8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" alt=""></p>
+<p>由代码可知，未加互斥锁等线程同步方法，判断该测试程序为单线程程序，故测试值的含义是单个CPU处理的数据量。</p>
+<p>在CBC模式下，每个明文块在加密之前与先前的密文块进行异或。这样，每个密文块依赖于直到那一点处理的所有明文块，为了使每个消息唯一，必须在第一个块中使用初始化向量，CBC一直是最常用的操作模式，其主要缺点是加密是连续的（即它不能并行化），并且消息必须被填充到密码块大小的倍数。（源自《Block cipher mode of operation》，Cipher Block Chaining (CBC)）</p>
+<p>因此对单独文件的加密不能采用多线程分块加密后合并的方法， <strong>只能进行单线程串行处理。</strong> 同时对多个文件加密时可采用多进程的方法。</p>
+<p>使用openssl的AES-CBC算法进行加密时，单个加密进程会占用单独的CPU（可在加密时用 <strong>mpstat –P ALL 1 命令查看CPU各核心占用</strong> ），而不会像windows下各CPU平均分配程序运行时间，该算法在Centos6.9系统下的服务器上运行时为单核运算。</p>
+<p>然而，在本机硬件系统下（机械硬盘），写入速度173MB/s，加密速度远大于硬盘写入速度，即使是固态硬盘，目前其写入速度基本为400MB/s，仍小于单核加密速度，因此加密性能瓶颈其实在硬盘端。</p>
+<p>实际加密测试也验证了该观点，进行128位AES加密时CPU占用在18%左右，约等于硬盘写入速度，而即使开启多个加密进程，因为硬盘写入速度的限制，其CPU使用率也不会有提升，多个加密进程总和仍为18%左右，而通过查看硬盘写入速度（iostat –d –k 1命令查看实时硬盘数据吞吐量）可以验证这个结论，无论加密进程数的多少，硬盘写入数据量始终维持在75M/s左右。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>原始数据记录表（单核单进程）：</p>
+<table>
+<thead>
+<tr>
+<th>3s内处理次数（次）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串长度/密钥长度-加速</td>
+<td>256加速</td>
+<td>256</td>
+<td>128加速</td>
+<td>128</td>
+</tr>
+<tr>
+<td>16</td>
+<td>164235849</td>
+<td>45538213</td>
+<td>216028678</td>
+<td>61472561</td>
+</tr>
+<tr>
+<td>64</td>
+<td>44104489</td>
+<td>12127353</td>
+<td>59949076</td>
+<td>16764178</td>
+</tr>
+<tr>
+<td>256</td>
+<td>11228355</td>
+<td>3052349</td>
+<td>15428204</td>
+<td>4237010</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>2819584</td>
+<td>769133</td>
+<td>3873868</td>
+<td>1071254</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>352891</td>
+<td>96414</td>
+<td>481027</td>
+<td>134964</td>
+</tr>
+<tr>
+<td>每秒完成处理的数据量（KB）</td>
+</tr>
+<tr>
+<td></td>
+<td>256加速</td>
+<td>256</td>
+<td>128加速</td>
+<td>128</td>
+</tr>
+<tr>
+<td>16</td>
+<td>875924.53</td>
+<td>242870.47</td>
+<td>1152152.95</td>
+<td>327853.66</td>
+</tr>
+<tr>
+<td>64</td>
+<td>940895.77</td>
+<td>258716.86</td>
+<td>1278913.62</td>
+<td>357635.8</td>
+</tr>
+<tr>
+<td>256</td>
+<td>958152.92</td>
+<td>260467.11</td>
+<td>1316540.07</td>
+<td>361558.19</td>
+</tr>
+<tr>
+<td>1024</td>
+<td>965636.79</td>
+<td>262530.73</td>
+<td>1322280.28</td>
+<td>365654.7</td>
+</tr>
+<tr>
+<td>8192</td>
+<td>963627.69</td>
+<td>264155.01</td>
+<td>1313524.39</td>
+<td>368541.7</td>
+</tr>
+</tbody>
+</table>
+<p>原始数据记录表（多核4进程）：</p>
+<table>
+<thead>
+<tr>
+<th>每秒完成处理的数据量（KB）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>256NI</td>
+<td>256</td>
+<td>128NI</td>
+<td>128</td>
+</tr>
+<tr>
+<td>16（1）</td>
+<td>829720.04</td>
+<td>228639.88</td>
+<td>1104093.30</td>
+<td>311166.81</td>
+</tr>
+<tr>
+<td>16（2）</td>
+<td>828732.60</td>
+<td>219768.95</td>
+<td>1064715.10</td>
+<td>310328.92</td>
+</tr>
+<tr>
+<td>16（3）</td>
+<td>812929.40</td>
+<td>223930.66</td>
+<td>1080881.39</td>
+<td>311039.67</td>
+</tr>
+<tr>
+<td>16（4）</td>
+<td>823522.32</td>
+<td>229075.16</td>
+<td>1087056.04</td>
+<td>284888.55</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3294904.36</strong></td>
+<td><strong>901414.65</strong></td>
+<td><strong>4336745.83</strong></td>
+<td><strong>1217423.95</strong></td>
+</tr>
+<tr>
+<td><strong>average</strong></td>
+<td><strong>823726.09</strong></td>
+<td><strong>225353.66</strong></td>
+<td><strong>1084186.46</strong></td>
+<td><strong>304355.99</strong></td>
+</tr>
+<tr>
+<td>64（1）</td>
+<td>887586.18</td>
+<td>244457.05</td>
+<td>1206750.21</td>
+<td>337703.47</td>
+</tr>
+<tr>
+<td>64（2）</td>
+<td>886163.99</td>
+<td>229392.20</td>
+<td>1149296.94</td>
+<td>337483.48</td>
+</tr>
+<tr>
+<td>64（3）</td>
+<td>882379.52</td>
+<td>243962.07</td>
+<td>1212589.21</td>
+<td>337568.58</td>
+</tr>
+<tr>
+<td>64（4）</td>
+<td>884456.34</td>
+<td>244838.06</td>
+<td>1202824.70</td>
+<td>326442.13</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3540586.03</strong></td>
+<td><strong>962649.38</strong></td>
+<td><strong>4771461.06</strong></td>
+<td><strong>1339197.66</strong></td>
+</tr>
+<tr>
+<td><strong>average</strong></td>
+<td><strong>885146.51</strong></td>
+<td><strong>240662.35</strong></td>
+<td><strong>1192865.27</strong></td>
+<td><strong>334799.42</strong></td>
+</tr>
+<tr>
+<td>256（1）</td>
+<td>903535.27</td>
+<td>237699.93</td>
+<td>1242169.00</td>
+<td>341303.30</td>
+</tr>
+<tr>
+<td>256（2）</td>
+<td>902095.36</td>
+<td>187668.91</td>
+<td>1230166.27</td>
+<td>340745.73</td>
+</tr>
+<tr>
+<td>256（3）</td>
+<td>901220.61</td>
+<td>223416.49</td>
+<td>1208672.00</td>
+<td>340700.16</td>
+</tr>
+<tr>
+<td>256（4）</td>
+<td>900393.90</td>
+<td>243111.04</td>
+<td>1222937.60</td>
+<td>334742.87</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3607245.14</strong></td>
+<td><strong>891896.37</strong></td>
+<td><strong>4903944.87</strong></td>
+<td><strong>1357492.06</strong></td>
+</tr>
+<tr>
+<td><strong>average</strong></td>
+<td><strong>901811.29</strong></td>
+<td><strong>222974.09</strong></td>
+<td><strong>1225986.22</strong></td>
+<td><strong>339373.02</strong></td>
+</tr>
+<tr>
+<td>1024（1）</td>
+<td>907645.27</td>
+<td>247615.15</td>
+<td>1245594.28</td>
+<td>345117.70</td>
+</tr>
+<tr>
+<td>1024（2）</td>
+<td>906423.98</td>
+<td>235822.08</td>
+<td>1227860.31</td>
+<td>344718.68</td>
+</tr>
+<tr>
+<td>1024（3）</td>
+<td>906051.93</td>
+<td>247566.21</td>
+<td>1250396.16</td>
+<td>344686.59</td>
+</tr>
+<tr>
+<td>1024（4）</td>
+<td>904497.83</td>
+<td>241399.13</td>
+<td>1212754.60</td>
+<td>339561.81</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3624619.01</strong></td>
+<td><strong>972402.57</strong></td>
+<td><strong>4936605.35</strong></td>
+<td><strong>1374084.78</strong></td>
+</tr>
+<tr>
+<td><strong>average</strong></td>
+<td><strong>906154.75</strong></td>
+<td><strong>243100.64</strong></td>
+<td><strong>1234151.34</strong></td>
+<td><strong>343521.20</strong></td>
+</tr>
+<tr>
+<td>8192（1）</td>
+<td>908697.60</td>
+<td>248233.98</td>
+<td>1251797.67</td>
+<td>347381.76</td>
+</tr>
+<tr>
+<td>8192（2）</td>
+<td>907176.62</td>
+<td>236647.77</td>
+<td>1238947.16</td>
+<td>346887.51</td>
+</tr>
+<tr>
+<td>8192（3）</td>
+<td>907119.27</td>
+<td>248168.45</td>
+<td>1210114.05</td>
+<td>346868.39</td>
+</tr>
+<tr>
+<td>8192（4）</td>
+<td>905764.86</td>
+<td>247870.81</td>
+<td>1245410.65</td>
+<td>341606.40</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3628758.35</strong></td>
+<td><strong>980921.01</strong></td>
+<td><strong>4946269.53</strong></td>
+<td><strong>1382744.06</strong></td>
+</tr>
+<tr>
+<td><strong>average</strong></td>
+<td><strong>907189.59</strong></td>
+<td><strong>245230.25</strong></td>
+<td><strong>1236567.38</strong></td>
+<td><strong>345686.02</strong></td>
+</tr>
+</tbody>
+</table>
+<p>#!/bin/bash</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>原始数据记录表（多核8进程）：</p>
+<table>
+<thead>
+<tr>
+<th>每秒完成处理的数据量（KB）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>256NI</td>
+<td>256</td>
+<td>128NI</td>
+<td>128</td>
+</tr>
+<tr>
+<td>16（1）</td>
+<td>412205.00</td>
+<td>113258.33</td>
+<td>542281.17</td>
+<td>154820.63</td>
+</tr>
+<tr>
+<td>16（2）</td>
+<td>411961.12</td>
+<td>114566.98</td>
+<td>543311.02</td>
+<td>152073.14</td>
+</tr>
+<tr>
+<td>16（3）</td>
+<td>405260.47</td>
+<td>113583.72</td>
+<td>555729.01</td>
+<td>154953.65</td>
+</tr>
+<tr>
+<td>16（4）</td>
+<td>413518.86</td>
+<td>112543.71</td>
+<td>554710.22</td>
+<td>152336.33</td>
+</tr>
+<tr>
+<td>16（5）</td>
+<td>401210.09</td>
+<td>109585.26</td>
+<td>542570.98</td>
+<td>155129.97</td>
+</tr>
+<tr>
+<td>16（6）</td>
+<td>409454.93</td>
+<td>112006.72</td>
+<td>553206.53</td>
+<td>152448.62</td>
+</tr>
+<tr>
+<td>16（7）</td>
+<td>396620.22</td>
+<td>109641.26</td>
+<td>554024.12</td>
+<td>151832.07</td>
+</tr>
+<tr>
+<td>16（8）</td>
+<td>396252.79</td>
+<td>114335.41</td>
+<td>553518.01</td>
+<td>154847.01</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3246483.48</strong></td>
+<td><strong>899521.39</strong></td>
+<td><strong>4399351.06</strong></td>
+<td><strong>1228441.42</strong></td>
+</tr>
+<tr>
+<td>64（1）</td>
+<td>443822.65</td>
+<td>121868.76</td>
+<td>602249.11</td>
+<td>168006.44</td>
+</tr>
+<tr>
+<td>64（2）</td>
+<td>443737.92</td>
+<td>120942.83</td>
+<td>603017.49</td>
+<td>168067.00</td>
+</tr>
+<tr>
+<td>64（3）</td>
+<td>440847.65</td>
+<td>121854.98</td>
+<td>606625.77</td>
+<td>168959.81</td>
+</tr>
+<tr>
+<td>64（4）</td>
+<td>443780.61</td>
+<td>121578.01</td>
+<td>606427.43</td>
+<td>168218.62</td>
+</tr>
+<tr>
+<td>64（5）</td>
+<td>441556.57</td>
+<td>116960.55</td>
+<td>602482.43</td>
+<td>168679.89</td>
+</tr>
+<tr>
+<td>64（6）</td>
+<td>443057.56</td>
+<td>121400.04</td>
+<td>607999.62</td>
+<td>168229.55</td>
+</tr>
+<tr>
+<td>64（7）</td>
+<td>420598.16</td>
+<td>116632.39</td>
+<td>605691.18</td>
+<td>168225.64</td>
+</tr>
+<tr>
+<td>64（8）</td>
+<td>421737.84</td>
+<td>120945.09</td>
+<td>605016.54</td>
+<td>168729.39</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3499138.96</strong></td>
+<td><strong>962182.65</strong></td>
+<td><strong>4839509.57</strong></td>
+<td><strong>1347116.34</strong></td>
+</tr>
+<tr>
+<td>256（1）</td>
+<td>452876.59</td>
+<td>116435.26</td>
+<td>620456.87</td>
+<td>170223.27</td>
+</tr>
+<tr>
+<td>256（2）</td>
+<td>447543.64</td>
+<td>122490.97</td>
+<td>619949.31</td>
+<td>170256.13</td>
+</tr>
+<tr>
+<td>256（3）</td>
+<td>452978.04</td>
+<td>122800.47</td>
+<td>620960.68</td>
+<td>170339.17</td>
+</tr>
+<tr>
+<td>256（4）</td>
+<td>446617.69</td>
+<td>122727.00</td>
+<td>622605.65</td>
+<td>170388.31</td>
+</tr>
+<tr>
+<td>256（5）</td>
+<td>451117.48</td>
+<td>122706.43</td>
+<td>619700.31</td>
+<td>170405.93</td>
+</tr>
+<tr>
+<td>256（6）</td>
+<td>451886.59</td>
+<td>116626.54</td>
+<td>621567.32</td>
+<td>170864.21</td>
+</tr>
+<tr>
+<td>256（7）</td>
+<td>446334.21</td>
+<td>122599.76</td>
+<td>621298.82</td>
+<td>170558.51</td>
+</tr>
+<tr>
+<td>256（8）</td>
+<td>429391.45</td>
+<td>122548.39</td>
+<td>621341.94</td>
+<td>170565.83</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3578745.69</strong></td>
+<td><strong>968934.82</strong></td>
+<td><strong>4967880.90</strong></td>
+<td><strong>1363601.36</strong></td>
+</tr>
+<tr>
+<td>1024（1）</td>
+<td>453629.95</td>
+<td>123336.70</td>
+<td>624560.47</td>
+<td>172215.30</td>
+</tr>
+<tr>
+<td>1024（2）</td>
+<td>453771.26</td>
+<td>121680.12</td>
+<td>626149.72</td>
+<td>172145.32</td>
+</tr>
+<tr>
+<td>1024（3）</td>
+<td>453067.43</td>
+<td>123789.65</td>
+<td>624891.22</td>
+<td>172355.53</td>
+</tr>
+<tr>
+<td>1024（4）</td>
+<td>453794.47</td>
+<td>123795.80</td>
+<td>624538.28</td>
+<td>172530.73</td>
+</tr>
+<tr>
+<td>1024（5）</td>
+<td>452943.44</td>
+<td>122607.16</td>
+<td>624980.20</td>
+<td>172741.66</td>
+</tr>
+<tr>
+<td>1024（6）</td>
+<td>453322.76</td>
+<td>123131.56</td>
+<td>625331.97</td>
+<td>172575.64</td>
+</tr>
+<tr>
+<td>1024（7）</td>
+<td>431738.81</td>
+<td>117503.15</td>
+<td>624301.16</td>
+<td>172289.71</td>
+</tr>
+<tr>
+<td>1024（8）</td>
+<td>430427.00</td>
+<td>122073.39</td>
+<td>625235.01</td>
+<td>172678.14</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3582695.12</strong></td>
+<td><strong>977917.53</strong></td>
+<td><strong>4999988.03</strong></td>
+<td><strong>1379532.03</strong></td>
+</tr>
+<tr>
+<td>8192（1）</td>
+<td>447190.36</td>
+<td>122058.08</td>
+<td>625033.27</td>
+<td>173304.49</td>
+</tr>
+<tr>
+<td>8192（2）</td>
+<td>438132.74</td>
+<td>124058.45</td>
+<td>624880.86</td>
+<td>174353.07</td>
+</tr>
+<tr>
+<td>8192（3）</td>
+<td>451158.02</td>
+<td>124344.22</td>
+<td>628457.47</td>
+<td>173976.23</td>
+</tr>
+<tr>
+<td>8192（4）</td>
+<td>460120.06</td>
+<td>124283.56</td>
+<td>629667.16</td>
+<td>173623.98</td>
+</tr>
+<tr>
+<td>8192（5）</td>
+<td>454470.93</td>
+<td>119960.92</td>
+<td>629380.44</td>
+<td>174462.29</td>
+</tr>
+<tr>
+<td>8192（6）</td>
+<td>454470.31</td>
+<td>122617.86</td>
+<td>631341.06</td>
+<td>174800.90</td>
+</tr>
+<tr>
+<td>8192（7）</td>
+<td>445128.70</td>
+<td>120766.46</td>
+<td>633121.45</td>
+<td>174809.09</td>
+</tr>
+<tr>
+<td>8192（8）</td>
+<td>446818.99</td>
+<td>125078.19</td>
+<td>632452.44</td>
+<td>174792.70</td>
+</tr>
+<tr>
+<td><strong>sum</strong></td>
+<td><strong>3597490.11</strong></td>
+<td><strong>983167.74</strong></td>
+<td><strong>5034334.15</strong></td>
+<td><strong>1394122.75</strong></td>
+</tr>
+</tbody>
+</table>
+<p>脚本：</p>
+<p>#!/bin/bash</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-256-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>#!/bin/bash</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+<p>OPENSSL_ia32cap=&quot;~0x200000200000000&quot; openssl speed -elapsed -evp aes-128-cbc&amp;</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 674823147@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>使用CPU硬件指令加速AES加密</p>
+    
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="wzbaxmt">wzbaxmt</a></p>
+    <p><span>发布时间:</span>2018-09-21, 05:14:14</p>
+    <p><span>最后更新:</span>2018-09-27, 04:15:29</p>
+    <span>原始链接:</span><a class="post-url" href="/2018/09/21/使用CPU硬件指令加速AES加密/" title="使用CPU硬件指令加速AES加密">http://yoursite.com/2018/09/21/使用CPU硬件指令加速AES加密/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2018 wzbaxmt</p>
+<p class="footer-entry">Buit with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>
+
+<script src="/js/script.js"></script>
+<script>
+    var img_resize = 'photoSwipe';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering').attr("unselectable","on");
+            $(this).addClass('has-numbering')
+                    .parent()
+                    .append($numbering);
+            for(i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+
+        // PhotoSwipe
+        $('article').each(function(i){
+            $(this).find('img').each(function(){
+                if ($(this).closest('figure').hasClass('article-gallery-img')) {
+                    return;
+                }
+                var alt = this.alt;
+                $(this)
+                    .wrap('<figure class="article-gallery-img" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"></figure>')
+                    .wrap('<a href="' + this.src + '" title="' + alt + '"></a>');
+                $(this).after('<div class="img_alt"><span>' + (alt || '') + '</span></div>');
+            });
+        });
+
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+        if (pswpElement) {
+            var gallerySelector = '.article-gallery, article';
+
+            var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+                // parse slide data (url, title, size ...) from DOM elements
+                // (children of gallerySelector)
+                var parseThumbnailElements = function(el) {
+                    var thumbElements = $(el).find('figure.article-gallery-img').toArray(),
+                        numNodes = thumbElements.length,
+                        items = [],
+                        figureEl,
+                        linkEl,
+                        size,
+                        imgEl,
+                        item;
+
+                    for (var i = 0; i < numNodes; i++) {
+
+                        figureEl = thumbElements[i]; // <figure> element
+
+                        // include only element nodes
+                        if (figureEl.nodeType !== 1) {
+                            continue;
+                        }
+
+                        linkEl = figureEl.children[0]; // <a> element
+                        imgEl = linkEl.children[0]; // <img>
+
+                        size = linkEl.getAttribute('data-size');
+                        size = size && size.split('x');
+
+                        // create slide object
+                        item = {
+                            src: linkEl.getAttribute('href'),
+                            w: size && parseInt(size[0], 10) || imgEl.width,
+                            h: size && parseInt(size[1], 10) || imgEl.height
+                        };
+
+                        if (figureEl.children.length > 1) {
+                            // <figcaption> content
+                            item.title = figureEl.children[1].innerHTML;
+                        }
+
+                        if (linkEl.children.length > 0) {
+                            // <img> thumbnail element, retrieving thumbnail url
+                            item.msrc = linkEl.children[0].getAttribute('src');
+                        }
+
+                        item.el = figureEl; // save link to element for getThumbBoundsFn
+                        items.push(item);
+                    }
+
+                    return items;
+                };
+
+                // find nearest parent element
+                var closest = function closest(el, fn) {
+                    return el && (fn(el) ? el : closest(el.parentNode, fn));
+                };
+
+                // triggers when user clicks on thumbnail
+                var onThumbnailsClick = function(e) {
+                    e = e || window.event;
+
+                    var eTarget = e.target || e.srcElement;
+
+                    // find root element of slide
+                    var clickedListItem = closest(eTarget, function(el) {
+                        return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                    });
+
+                    if (!clickedListItem) {
+                        return;
+                    }
+
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    } else {
+                        e.returnValue = false;
+                    }
+
+                    // find index of clicked item by looping through all child nodes
+                    // alternatively, you may define index via data- attribute
+                    var clickedGallery = $(clickedListItem).closest(gallerySelector)[0],
+                        childNodes = $(clickedGallery).find('figure.article-gallery-img').toArray(),
+                        numChildNodes = childNodes.length,
+                        nodeIndex = 0,
+                        index;
+
+                    for (var i = 0; i < numChildNodes; i++) {
+                        if (childNodes[i].nodeType !== 1) {
+                            continue;
+                        }
+
+                        if (childNodes[i] === clickedListItem) {
+                            index = nodeIndex;
+                            break;
+                        }
+                        nodeIndex++;
+                    }
+
+
+
+                    if (index >= 0) {
+                        // open PhotoSwipe if valid index found
+                        openPhotoSwipe(index, clickedGallery);
+                    }
+                    return false;
+                };
+
+                // parse picture index and gallery index from URL (#&pid=1&gid=2)
+                var photoswipeParseHash = function() {
+                    var hash = window.location.hash.substring(1),
+                        params = {};
+
+                    if (hash.length < 5) {
+                        return params;
+                    }
+
+                    var vars = hash.split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        if (!vars[i]) {
+                            continue;
+                        }
+                        var pair = vars[i].split('=');
+                        if (pair.length < 2) {
+                            continue;
+                        }
+                        params[pair[0]] = pair[1];
+                    }
+
+                    if (params.gid) {
+                        params.gid = parseInt(params.gid, 10);
+                    }
+
+                    return params;
+                };
+
+                var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                    var pswpElement = document.querySelectorAll('.pswp')[0],
+                        gallery,
+                        options,
+                        items;
+
+                    items = parseThumbnailElements(galleryElement);
+
+                    // define options (if needed)
+                    options = {
+
+                        // define gallery index (for URL)
+                        galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+                        getThumbBoundsFn: function(index) {
+                            // See Options -> getThumbBoundsFn section of documentation for more info
+                            var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                rect = thumbnail.getBoundingClientRect();
+
+                            return {
+                                x: rect.left,
+                                y: rect.top + pageYScroll,
+                                w: rect.width
+                            };
+                        }
+                    };
+
+                    // PhotoSwipe opened from URL
+                    if (fromURL) {
+                        if (options.galleryPIDs) {
+                            // parse real index when custom PIDs are used
+                            // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
+                            for (var j = 0; j < items.length; j++) {
+                                if (items[j].pid == index) {
+                                    options.index = j;
+                                    break;
+                                }
+                            }
+                        } else {
+                            // in URL indexes start from 1
+                            options.index = parseInt(index, 10) - 1;
+                        }
+                    } else {
+                        options.index = parseInt(index, 10);
+                    }
+
+                    // exit if index not found
+                    if (isNaN(options.index)) {
+                        return;
+                    }
+
+                    if (disableAnimation) {
+                        options.showAnimationDuration = 0;
+                    }
+
+                    // Pass data to PhotoSwipe and initialize it
+                    gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+
+                    gallery.listen('imageLoadComplete', function(index, item) {
+                        var linkEl = item.el.children[0];
+                        var img = item.container.children[0];
+                        if (!linkEl.getAttribute('data-size')) {
+                            linkEl.setAttribute('data-size', img.naturalWidth + 'x' + img.naturalHeight);
+                            item.w = img.naturalWidth;
+                            item.h = img.naturalHeight;
+                            gallery.invalidateCurrItems();
+                            gallery.updateSize(true);
+                        }
+                    });
+
+                    gallery.init();
+                };
+
+                // loop through all gallery elements and bind events
+                var galleryElements = document.querySelectorAll(gallerySelector);
+
+                for (var i = 0, l = galleryElements.length; i < l; i++) {
+                    galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                    galleryElements[i].onclick = onThumbnailsClick;
+                }
+
+                // Parse URL and open gallery if it contains #&pid=3&gid=1
+                var hashData = photoswipeParseHash();
+                if (hashData.pid && hashData.gid) {
+                    openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
+                }
+            };
+
+            // execute above function
+            initPhotoSwipeFromDOM(gallerySelector);
+        }
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 2px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 2px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("/img/wallpaper.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+</style>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+</html>
