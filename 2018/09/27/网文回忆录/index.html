@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>mysql常用命令 | Wzbaxmt&#39;blog</title>
+  <title>网文回忆录 | Wzbaxmt&#39;blog</title>
   <meta name="keywords" content="">
-  <meta name="description" content="mysql常用命令 | Wzbaxmt&#39;blog">
+  <meta name="description" content="网文回忆录 | Wzbaxmt&#39;blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网文回忆录">
@@ -209,9 +209,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-mysql常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-网文回忆录" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">mysql常用命令</h1>
+        <h1 class="article-title">网文回忆录</h1>
     
     <div class="article-meta">
         
@@ -219,7 +219,7 @@
         
         <span class="book">
             
-            <a href="javascript:" data-rel="术">术</a>
+            <a href="javascript:" data-rel="旺仔书屋">旺仔书屋</a>
             
         </span>
         
@@ -227,7 +227,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2018-09-27 22:30:26'>2018-09-21 04:37</time>
+        创建时间:<time class="date" title='更新时间: 2018-09-27 22:30:27'>2018-09-27 05:30</time>
         
     </div>
     <div class="article-meta">
@@ -249,7 +249,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改表中字段（列）长度"><span class="toc-text">修改表中字段（列）长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改表的编码集"><span class="toc-text">修改表的编码集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看mysql使用的字符集"><span class="toc-text">查看mysql使用的字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据表的字符集"><span class="toc-text">查看数据表的字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据列的字符集"><span class="toc-text">查看数据列的字符集</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -264,12 +264,7 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="修改表中字段（列）长度"><a href="#修改表中字段（列）长度" class="headerlink" title="修改表中字段（列）长度"></a>修改表中字段（列）长度</h2><p>alter table 表名 modify column 列名 类型(要修改的长度);<br>mysql&gt; alter table mqtt_msg modify column msg varchar(16000);</p>
-<h2 id="修改表的编码集"><a href="#修改表的编码集" class="headerlink" title="修改表的编码集"></a>修改表的编码集</h2><p>mysql&gt; alter table mqtt_msg convert to character set utf8mb4 collate utf8mb4_bin;</p>
-<h2 id="查看mysql使用的字符集"><a href="#查看mysql使用的字符集" class="headerlink" title="查看mysql使用的字符集"></a>查看mysql使用的字符集</h2><p>mysql&gt; show variables like ‘%char%’;<br>+————————–+—————————-+<br>| Variable_name            | Value                      |<br>+————————–+—————————-+<br>| character_set_client     | utf8                       |<br>| character_set_connection | utf8                       |<br>| character_set_database   | utf8                       |<br>| character_set_filesystem | binary                     |<br>| character_set_results    | utf8                       |<br>| character_set_server     | utf8                       |<br>| character_set_system     | utf8                       |<br>| character_sets_dir       | /usr/share/mysql/charsets/ |<br>+————————–+—————————-+<br>8 rows in set (0.00 sec)</p>
-<h2 id="查看数据表的字符集"><a href="#查看数据表的字符集" class="headerlink" title="查看数据表的字符集"></a>查看数据表的字符集</h2><p>mysql&gt; mysql&gt;  show table status from MQTT like ‘%mqtt_msg%’;<br>+———-+——–+———+————+——+—————-+————-+—————–+————–+———–+—————-+———————+————-+————+—————–+———-+—————-+———+<br>| Name     | Engine | Version | Row_format | Rows | Avg_row_length | Data_length | Max_data_length | Index_length | Data_free | Auto_increment | Create_time         | Update_time | Check_time | Collation       | Checksum | Create_options | Comment |<br>+———-+——–+———+————+——+—————-+————-+—————–+————–+———–+—————-+———————+————-+————+—————–+———-+—————-+———+<br>| mqtt_msg | InnoDB |      10 | Compact    |    0 |              0 |       16384 |               0 |            0 |         0 |              1 | 2018-09-26 10:33:14 | NULL        | NULL       | utf8_general_ci |     NULL |                |         |<br>+———-+——–+———+————+——+—————-+————-+—————–+————–+———–+—————-+———————+————-+————+—————–+———-+—————-+———+<br>1 row in set (0.00 sec)</p>
-<h2 id="查看数据列的字符集"><a href="#查看数据列的字符集" class="headerlink" title="查看数据列的字符集"></a>查看数据列的字符集</h2><p>mysql&gt; show full columns from mqtt_msg;<br>+———–+—————-+—————–+——+—–+——————-+—————————–+———————————+———+<br>| Field     | Type           | Collation       | Null | Key | Default           | Extra                       | Privileges                      | Comment |<br>+———–+—————-+—————–+——+—–+——————-+—————————–+———————————+———+<br>| topic     | char(20)       | utf8_general_ci | NO   |     | NULL              |                             | select,insert,update,references |         |<br>| timestamp | timestamp      | NULL            | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP | select,insert,update,references |         |<br>| msg       | varchar(20000) | utf8_general_ci | NO   |     | NULL              |                             | select,insert,update,references |         |<br>| slice     | tinyint(4)     | NULL            | NO   |     | 0                 |                             | select,insert,update,references |         |<br>| id        | int(10)        | NULL            | NO   | PRI | NULL              | auto_increment              | select,insert,update,references |         |<br>+———–+—————-+—————–+——+—–+——————-+—————————–+———————————+———+<br>5 rows in set (0.00 sec)</p>
-
+        
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 674823147@qq.com </span>
     </div>
@@ -282,12 +277,12 @@
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>mysql常用命令</p>
+    <p><span>文章标题:</span>网文回忆录</p>
     
     <p><span>本文作者:</span><a href="javascript:void(0)" title="wzbaxmt">wzbaxmt</a></p>
-    <p><span>发布时间:</span>2018-09-21, 04:37:56</p>
-    <p><span>最后更新:</span>2018-09-27, 22:30:26</p>
-    <span>原始链接:</span><a class="post-url" href="/2018/09/21/mysql常用命令/" title="mysql常用命令">http://yoursite.com/2018/09/21/mysql常用命令/</a>
+    <p><span>发布时间:</span>2018-09-27, 05:30:09</p>
+    <p><span>最后更新:</span>2018-09-27, 22:30:27</p>
+    <span>原始链接:</span><a class="post-url" href="/2018/09/27/网文回忆录/" title="网文回忆录">http://yoursite.com/2018/09/27/网文回忆录/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
